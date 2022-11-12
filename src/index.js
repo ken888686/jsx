@@ -1,40 +1,43 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { faker } from "@faker-js/faker/locale/zh_TW";
-import CommentDetail from "./CommentDetail";
-import ApprovalCard from "./ApprovalCard";
 
-function App() {
-  return (
-    <div className="ui container comments">
-      <ApprovalCard>
-        <CommentDetail
-          avatar={faker.image.avatar()}
-          author={faker.name.fullName()}
-          date={faker.date.past().toLocaleDateString()}
-          content={faker.lorem.sentence()}
-        />
-      </ApprovalCard>
-      <ApprovalCard>
-        <CommentDetail
-          avatar={faker.image.avatar()}
-          author={faker.name.fullName()}
-          date={faker.date.past().toLocaleDateString()}
-          content={faker.lorem.sentence()}
-        />
-      </ApprovalCard>
-      <ApprovalCard>
-        <CommentDetail
-          avatar={faker.image.avatar()}
-          author={faker.name.fullName()}
-          date={faker.date.past().toLocaleDateString()}
-          content={faker.lorem.sentence()}
-        />
-      </ApprovalCard>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { lat: null, lng: null, errorMessage: "" };
+
+    window.navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.setState({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
+        console.info(position.coords);
+      },
+      (err) => {
+        this.setState({
+          errorMessage: err.message,
+        });
+      }
+    );
+  }
+
+  render() {
+    if (this.state.errorMessage && !this.state.lat && !this.state.lng) {
+      return <div>Error: {this.state.errorMessage}</div>;
+    }
+
+    if (!this.state.errorMessage && this.state.lat && this.state.lng) {
+      return (
+        <div>
+          Latitude: {this.state.lat}, Longitude: {this.state.lng}
+        </div>
+      );
+    }
+
+    return <div>Loading...</div>;
+  }
 }
 
-const container = document.getElementById("root");
-const root = createRoot(container); // createRoot(container!) if you use TypeScript
-root.render(<App />);
+createRoot(document.getElementById("root")).render(<App />);
