@@ -1,6 +1,7 @@
 import "./SeasonDisplay.css";
 import React from "react";
 
+// Configuration
 const seasonConfig = {
   summer: {
     text: `Let's hit the beach.`,
@@ -12,6 +13,7 @@ const seasonConfig = {
   },
 };
 
+// Helper function
 function getSeason(lat, month) {
   if (month > 2 && month < 9) {
     return lat > 0 ? "summer" : "winter";
@@ -20,6 +22,7 @@ function getSeason(lat, month) {
   }
 }
 
+// Component
 function SeasonDisplay({ lat, lng }) {
   const season = getSeason(lat, new Date().getMonth());
   const { text, iconName } = seasonConfig[season];
