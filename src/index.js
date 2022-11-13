@@ -2,15 +2,7 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 
 class App extends React.Component {
-  /*
-  do one time setup
-  state initialization
-  API request
-  */
-  constructor(props) {
-    super(props);
-    this.state = { lat: null, lng: null, errorMessage: "" };
-  }
+  state = { lat: null, lng: null, errorMessage: "" };
 
   /*
   do something only one time
