@@ -1,12 +1,17 @@
 import React from "react";
 
 class SearchBar extends React.Component {
-  state = { term: "" };
+  state = { term: "Test" };
+
+  onFormSubmit = (event) => {
+    event.preventDefault();
+    console.log(`${this.state.term}: ${new Date().toLocaleString()}`);
+  };
 
   render() {
     return (
       <div className="ui segment">
-        <form action="submit" className="ui form">
+        <form onSubmit={this.onFormSubmit} className="ui form">
           <div className="field">
             <label htmlFor="term">Image Search</label>
             <input
@@ -14,11 +19,7 @@ class SearchBar extends React.Component {
               name="term"
               id="term"
               value={this.state.term}
-              // 不加括號 -> 觸發執行
-              // 加括號 -> render 的時候就會執行
-              onChange={(e) =>
-                this.setState({ term: e.target.value.toUpperCase() })
-              }
+              onChange={(e) => this.setState({ term: e.target.value })}
             />
           </div>
           <button type="submit" className="ui primary button">
