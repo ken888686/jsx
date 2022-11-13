@@ -1,3 +1,4 @@
+import "./index.css";
 import React from "react";
 import { createRoot } from "react-dom/client";
 import SeasonDisplay from "./SeasonDisplay";
@@ -6,10 +7,6 @@ import Spinner from "./Spinner";
 class App extends React.Component {
   state = { lat: null, lng: null, errorMessage: "" };
 
-  /*
-  do something only one time
-  data loading
-  */
   componentDidMount() {
     window.navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -25,27 +22,7 @@ class App extends React.Component {
     );
   }
 
-  /*
-  每次更新 state/props 都會被呼
-  */
-  componentDidUpdate(prevProps, prevState) {
-    console.log("componentDidUpdate");
-    console.log(prevState);
-    console.log(this.state);
-  }
-
-  /*
-  移除 component 使用
-  */
-  componentWillUnmount() {
-    console.log("componentWillUnmount");
-  }
-
-  /*
-  return JSX only
-  no network request
-  */
-  render() {
+  renderContent() {
     if (this.state.errorMessage && !this.state.lat && !this.state.lng) {
       return <div>Error: {this.state.errorMessage}</div>;
     }
@@ -55,6 +32,10 @@ class App extends React.Component {
     }
 
     return <Spinner />;
+  }
+
+  render() {
+    return <div className="border red">{this.renderContent()}</div>;
   }
 }
 
