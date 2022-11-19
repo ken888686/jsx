@@ -18,7 +18,7 @@ const items = [
 
 const App = () => {
   return (
-    <div className="">
+    <div>
       <Accordion items={items} />
     </div>
   );
