@@ -1,10 +1,25 @@
 import React from "react";
-import Search from "./components/Search";
+import Dropdown from "./components/Dropdown";
+
+const options = [
+  {
+    label: "Red",
+    value: "red",
+  },
+  {
+    label: "Green",
+    value: "green",
+  },
+  {
+    label: "Blue",
+    value: "blue",
+  },
+];
 
 const App = () => {
   return (
     <div>
-      <Search />
+      <Dropdown options={options} />
     </div>
   );
 };
