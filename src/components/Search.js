@@ -8,7 +8,7 @@ const Search = () => {
   useEffect(() => {
     const search = async () => {
       const { data } = await axios.get(
-        `https://en.wikipedia.org/api/rest_v1/page/related/${term}`,
+        `https://zh.wikipedia.org/api/rest_v1/page/related/${term}`,
         {
           params: {},
         }
@@ -24,6 +24,16 @@ const Search = () => {
   const renderedResults = results.map((result) => {
     return (
       <div className="item" key={result.pageid}>
+        <div className="right floated content">
+          <a
+            href={`https://zh.wikipedia.org/zh-tw/${result.title}`}
+            className="ui button"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Go
+          </a>
+        </div>
         <div className="content">
           <div className="header">{result.title}</div>
           <span dangerouslySetInnerHTML={{ __html: result.extract_html }} />
