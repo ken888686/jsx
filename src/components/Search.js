@@ -13,13 +13,25 @@ const Search = () => {
           params: {},
         }
       );
-      setResults(data);
+      setResults(data.pages);
     };
 
     if (term) {
       search();
     }
   }, [term]);
+
+  const renderedResults = results.map((result) => {
+    return (
+      <div className="item" key={result.pageid}>
+        <div className="content">
+          <div className="header">{result.title}</div>
+          <span dangerouslySetInnerHTML={{ __html: result.extract_html }} />
+          {/* dangerouslySetInnerHTML: 可以直接顯示伺服器回傳的html內容，但需要相信伺服器不會回傳惡意內容而產生XXS攻擊 */}
+        </div>
+      </div>
+    );
+  });
 
   return (
     <div>
@@ -36,6 +48,7 @@ const Search = () => {
           />
         </div>
       </div>
+      <div className="ui celled list">{renderedResults}</div>
     </div>
   );
 };
