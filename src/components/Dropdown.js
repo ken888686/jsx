@@ -4,20 +4,23 @@ const Dropdown = ({ selected, onSelectedChange, options }) => {
   const [open, setOpen] = useState(false);
   const ref = useRef();
 
-  // 設定[]可以表示只在第一次render執行一次，以後都不會在執行
   useEffect(() => {
-    document.body.addEventListener(
-      "click",
-      (event) => {
-        if (ref.current.contains(event.target)) {
-          return;
-        }
-        setOpen(false);
-      },
-      {
-        capture: true,
+    const onBodyClick = (event) => {
+      if (ref.current.contains(event.target)) {
+        return;
       }
-    );
+      setOpen(false);
+    };
+
+    document.body.addEventListener("click", onBodyClick, {
+      capture: true,
+    });
+
+    return () => {
+      document.body.removeEventListener("click", onBodyClick, {
+        capture: true,
+      });
+    };
   }, []);
 
   const renderedOptions = options.map((option) => {
