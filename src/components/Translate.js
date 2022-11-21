@@ -5,20 +5,20 @@ import Convert from "./Convert";
 const options = [
   {
     label: "Chinese Simplified",
-    value: "a",
+    value: "zh-CN",
   },
   {
     label: "Chinese Traditional",
-    value: "b",
+    value: "zh-TW",
   },
   {
     label: "Japanese",
-    value: "c",
+    value: "ja",
   },
 ];
 const Translate = () => {
   const [language, setLanguage] = useState(options[0]);
-  const [text, setText] = useState("");
+  const [text, setText] = useState("我想睡覺");
 
   return (
     <div>
